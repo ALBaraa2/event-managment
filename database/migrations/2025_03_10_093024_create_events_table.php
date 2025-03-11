@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(User::class);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description');
             $table->dateTime('start_date');
