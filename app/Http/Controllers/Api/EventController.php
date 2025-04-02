@@ -33,7 +33,7 @@ class EventController extends Controller
             'user_id' => 5
         ]);
 
-        return $event;
+        return new EventResource($event);
     }
 
     /**
@@ -41,7 +41,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return $event;
+        return new EventResource($event);
     }
 
     /**
@@ -57,7 +57,7 @@ class EventController extends Controller
                 'end_time' => 'sometimes|date|after:start_time'
                 ])
             );
-            return $event;
+            return new EventResource($event);
     }
 
     /**
