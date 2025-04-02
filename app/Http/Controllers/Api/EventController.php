@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\EventResource;
 
 class EventController extends Controller
 {
@@ -14,7 +15,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::all();
+        return EventResource::collection(Event::all());
     }
 
     /**
