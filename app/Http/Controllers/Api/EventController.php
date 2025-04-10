@@ -92,14 +92,14 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        $name = $event->name;
+        // $name = $event->name;
 
         $event->delete();
 
-        return $name. ' event deleted successfully';
-        return response()->json([
-            'message' => 'Event deleted successfully'
-        ]);
-        // return response(status: 204);
+        // return $name. ' event deleted successfully';
+        // return response()->json([
+        //     'message' => 'Event deleted successfully'
+        // ]);
+        return response(status: 204);
     }
 }
