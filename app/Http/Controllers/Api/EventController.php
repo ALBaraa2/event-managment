@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Http\Traits\CanLoadRelationships;
 use App\Models\Event;
 use App\Models\User;
@@ -14,6 +14,12 @@ class EventController extends Controller
     use CanLoadRelationships;
 
     private array $relations = ['user', 'attendees', 'attendees.user'];
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,19 +33,6 @@ class EventController extends Controller
         );
     }
 
-    protected function shouldIncludeRelation(string $relation): bool
-    {
-        $include = request()->query('include');
-
-        if (!$include) {
-            return false;
-        }
-
-        $relations = array_map('trim' , explode(',', $include));
-
-        return in_array($relation, $relations);
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -50,9 +43,9 @@ class EventController extends Controller
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
                 'start_time' => 'required|date',
-                'end_time' => 'required|date|after:start_time',
-                'user_id' => 'required|exists:users,id'
+                'end_time' => 'required|date|after:start_time'
             ]),
+            'user_id' => $request->user()->id
             
         ]);
 
