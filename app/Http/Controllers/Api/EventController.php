@@ -12,14 +12,15 @@ use App\Http\Resources\EventResource;
 class EventController extends Controller
 {
     use CanLoadRelationships;
+
+    private array $relations = ['user', 'attendees', 'attendees.user'];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         
-        $relations = ['user', 'attendees', 'attendees.user'];
-        $query = $this->loadRelationships(Event::query(), $relations);
+        $query = $this->loadRelationships(Event::query(), $this->relations);
  
         return EventResource::collection(
             $query->latest()->paginate()
@@ -49,12 +50,13 @@ class EventController extends Controller
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
                 'start_time' => 'required|date',
-                'end_time' => 'required|date|after:start_time'
+                'end_time' => 'required|date|after:start_time',
+                'user_id' => 'required|exists:users,id'
             ]),
-            'user_id' => 5
+            
         ]);
 
-        return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     /**
@@ -62,8 +64,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $event->load('user', 'attendees');
-        return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     /**
@@ -79,7 +80,7 @@ class EventController extends Controller
                 'end_time' => 'sometimes|date|after:start_time'
                 ])
             );
-            return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     /**
