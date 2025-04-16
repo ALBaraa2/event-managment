@@ -23,6 +23,7 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         
@@ -32,7 +33,7 @@ class EventController extends Controller
             $query->latest()->paginate()
         );
     }
-
+    /**comment for github ^_^ */
     /**
      * Store a newly created resource in storage.
      */
