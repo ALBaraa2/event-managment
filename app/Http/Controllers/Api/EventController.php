@@ -8,6 +8,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Resources\EventResource;
 use App\Http\Controllers\Controller;
+//github commit ^_^
 
 class EventController extends Controller
 {
