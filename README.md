@@ -47,11 +47,11 @@ php artisan serve
 
 ### 🔐 Authentication
 
-| Method | Endpoint       | Body Parameters           | Description              |
-|--------|----------------|---------------------------|--------------------------|
-| POST   | `/api/register`| name, email, password     | Register a new user      |
-| POST   | `/api/login`   | email, password           | Login and receive token  |
-| POST   | `/api/logout`  | -                         | Logout (requires token)  |
+| Method | Endpoint       | Body Parameters                              | Description              |
+|--------|----------------|----------------------------------------------|--------------------------|
+| POST   | `/api/register`| name, email, password, password_confirmation | Register a new user      |
+| POST   | `/api/login`   | email, password                              | Login and receive token  |
+| POST   | `/api/logout`  | -                                            | Logout (requires token)  |
 
 ---
 
