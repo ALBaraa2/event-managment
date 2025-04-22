@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum');
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::apiResource('events', EventController::class);
 Route::apiResource('events.attendees', AttendeeController::class)
