@@ -28,20 +28,29 @@ A Laravel RESTful API for managing events and their attendees. Includes authenti
 - Postman or any API testing tool
 
 ### Installation
-
+1. Clone the repository:
 ```bash
 git clone https://github.com/ALBaraa2/event-managment.git
 cd event-managment
+```
+2. Install PHP dependencies:
+```bash
 composer install
+```
+3. Set up the environment file:
+```bash
 cp .env.example .env
+```
+4. Generate application key:
+```bash
 php artisan key:generate
 ```
-1.Configure your .env file with your database credentials
-2.Run migrations:
+5. Configure your .env file with your database credentials.
+6. Run migrations:
 ```bash
 php artisan migrate
 ```
-3.Start the server:
+7. Start the server:
 ```bash
 php artisan serve
 ```
