@@ -35,11 +35,16 @@ cd event-managment
 composer install
 cp .env.example .env
 php artisan key:generate
+```
 1.Configure your .env file with your database credentials
 2.Run migrations:
+```bash
 php artisan migrate
+```
 3.Start the server:
+```bash
 php artisan serve
+```
 
 ## 🧪 API Endpoints
 
