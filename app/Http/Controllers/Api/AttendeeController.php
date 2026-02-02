@@ -21,7 +21,7 @@ class AttendeeController extends Controller
 
     public function __construct() {
         $this->middleware('auth:sanctum')->except(['index', 'show', 'update']);
-        $this->authorizeResource(AttendeeController::class, 'attendee');
+        // $this->authorizeResource(AttendeeController::class, 'attendee');
     }
 
     /**
@@ -29,6 +29,8 @@ class AttendeeController extends Controller
      */
     public function index(Event $event)
     {
+        $this->authorize('viewAny', [Attendee::class, $event]);
+
         $attendees = $this->loadRelationships(
             $event->attendees()->latest()
         );
@@ -43,6 +45,8 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
+        $this->authorize('create', Attendee::class);
+
         $attendee = $this->loadRelationships(
             $event->attendees()->create([
                 'user_id' => 1
@@ -57,6 +61,8 @@ class AttendeeController extends Controller
      */
     public function show(Event $event, Attendee $attendee)
     {
+        $this->authorize('view', $attendee);
+
         return new AttendeeResource($this->loadRelationships($attendee));
     }
     /**
@@ -65,8 +71,10 @@ class AttendeeController extends Controller
     public function destroy(Event $event, Attendee $attendee)
     {
         // Gate::authorize('delete-atendee', [$event, $attendee]);
+        $this->authorize('delete', $attendee);
+
         $attendee->delete();
- 
+
         return response(status: 204);
     }
 }

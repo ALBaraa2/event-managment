@@ -6,6 +6,10 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
 
+Route::get('/', function () {
+    return response()->json(['message' => 'Welcome to the Event Management API']);
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
