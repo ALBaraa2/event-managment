@@ -36,10 +36,10 @@ class AttendeePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Attendee $attendee): bool
+    public function delete(User $user, Attendee $attendee): Response
     {
         return $user->id === $attendee->event->user_id ||
-                $user->id === $attendee->user_id;
+                $user->id === $attendee->user_id ? Response::allow() : Response::deny('You do not own this event or attendee.');
     }
 
     /**
