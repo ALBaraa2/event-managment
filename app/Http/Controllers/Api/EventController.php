@@ -18,6 +18,7 @@ class EventController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
+        $this->middleware('throttle:api')->only(['store', 'update', 'destroy']);
         $this->authorizeResource(Event::class, 'event');
     }
 
@@ -27,9 +28,9 @@ class EventController extends Controller
 
     public function index()
     {
-        
+
         $query = $this->loadRelationships(Event::query(), $this->relations);
- 
+
         return EventResource::collection(
             $query->latest()->paginate()
         );
@@ -48,7 +49,7 @@ class EventController extends Controller
                 'end_time' => 'required|date|after:start_time'
             ]),
             'user_id' => $request->user()->id
-            
+
         ]);
 
         return new EventResource($this->loadRelationships($event));
